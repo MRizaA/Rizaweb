@@ -91,16 +91,44 @@
   .bg-navy .section__sub{color:#AAB4C8;}
 
   /* promo bubble */
-  .pricing__head-top{display:flex;align-items:center;flex-wrap:wrap;gap:0px;margin-bottom:16px;}
-  .pricing__head-top .eyebrow{margin-bottom:0;}
+  .pricing__head-top{display:flex;align-items:flex-start;margin-bottom:18px;}
   .promo-bubble{
-    display:inline-block;font-style:italic;font-weight:700;font-size:.82rem;
-    color:#636014;background:#d4cc2e;padding:5px 10px;border-radius:100px;
-    transform:rotate(5deg);animation:bubblePulse 2.6s ease-in-out infinite;
+    position:relative;z-index:1;flex:none;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    width:90px;height:45px;padding:0 8px;
+    font-style:italic;font-weight:700;font-size:.67rem;line-height:1.15;
+    color:#7A3B00;background:#FFCE3D;
+    /* clip-path:polygon(50% 0%, 60.4% 11.4%, 75% 6.7%, 78.3% 21.7%, 93.3% 25%, 88.6% 39.6%, 100% 50%, 88.6% 60.4%, 93.3% 75%, 78.3% 78.3%, 75% 93.3%, 60.4% 88.6%, 50% 100%, 39.6% 88.6%, 25% 93.3%, 21.7% 78.3%, 6.7% 75%, 11.4% 60.4%, 0% 50%, 11.4% 39.6%, 6.7% 25%, 21.7% 21.7%, 25% 6.7%, 39.6% 11.4%); */
+    
+    /* clip-path: polygon(
+      100% 50%, 85.3% 57.2%, 96% 69%, 79.9% 70.2%, 
+      85.5% 85.5%, 70.2% 79.9%, 69% 96%, 57.2% 85.3%, 
+      50% 100%, 42.8% 85.3%, 31% 96%, 29.8% 79.9%, 
+      14.5% 85.5%, 20.1% 70.2%, 4% 69%, 14.7% 57.2%, 
+      0% 50%, 14.7% 42.8%, 4% 31%, 20.1% 29.8%, 
+      14.5% 14.5%, 29.8% 20.1%, 31% 4%, 42.8% 14.7%, 
+      50% 0%, 57.2% 14.7%, 69% 4%, 70.2% 20.1%, 
+      85.5% 14.5%, 79.9% 29.8%, 96% 31%, 85.3% 42.8%
+    ); */
+
+    clip-path: polygon(
+      100% 50%, 88% 63%, 93% 76%, 80% 71%, 
+      78% 92%, 68% 77%, 64% 98%, 55% 80%, 
+      50% 100%, 45% 80%, 36% 98%, 32% 77%, 
+      22% 92%, 20% 71%, 7% 76%, 12% 63%, 
+      0% 50%, 12% 40%, 7% 24%, 20% 29%, 
+      22% 8%, 32% 23%, 36% 2%, 45% 20%, 
+      50% 0%, 55% 20%, 64% 2%, 68% 23%, 
+      78% 8%, 80% 29%, 93% 24%, 88% 40%
+    );
+
+    transform:rotate(12deg) translate(-47px,4px);
+    filter:drop-shadow(0 5px 10px rgba(0,0,0,.25));
+    animation:bubblePulse 2.6s ease-in-out infinite;
   }
   @keyframes bubblePulse{
-    0%,100%{transform:rotate(5deg) scale(1);}
-    50%{transform:rotate(5deg) scale(1.06);}
+    0%,100%{transform:rotate(12deg) translate(-47px,4px) scale(1);}
+    50%{transform:rotate(12deg) translate(-47px,4px) scale(1.06);}
   }
 
   /* buttons */
@@ -213,6 +241,9 @@
     border-radius:24px;overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--line);
     min-height:460px;
   }
+  .folio-card + .folio-card{margin-top:32px;}
+  .folio-card--reverse .folio-card__preview{order:2;}
+  .folio-card--reverse .folio-card__body{order:1;}
   .folio-card__preview{
     position:relative;background:var(--mist);min-height:0;max-height:460px;overflow-y:auto;
     -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
@@ -232,10 +263,12 @@
   .folio-card__body h3{font-size:1.5rem;margin-bottom:12px;}
   .folio-card__body p{color:var(--slate);font-size:.98rem;margin-bottom:20px;}
   .folio-gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px;}
-  .folio-gallery img{width:100%;height:160px;object-fit:cover;object-position:top;border-radius:12px;border:1px solid var(--line);}
+  .folio-gallery img{width:100%;height:auto;object-fit:cover;object-position:top;border-radius:12px;border:1px solid var(--line); max-height:160px;}
   @media (max-width:780px){
     .folio-card{grid-template-columns:1fr;min-height:0;}
     .folio-card__preview{max-height:320px;}
+    .folio-card--reverse .folio-card__preview{order:1;}
+    .folio-card--reverse .folio-card__body{order:2;}
   }
   @media (max-width:480px){
     .folio-gallery{grid-template-columns:1fr;}
@@ -496,6 +529,26 @@
         <a class="btn btn--primary" data-i18n="folio.cta" href="https://mrizaa.github.io/Landingpage_coffeeshop/" target="_blank" rel="noopener">Lihat Demo Langsung →</a>
       </div>
     </div>
+
+    <div class="folio-card folio-card--reverse reveal">
+      <div class="folio-card__preview">
+        <span class="folio-card__preview-hint" data-i18n="folio.hint">Scroll ↕ lihat halaman penuh</span>
+        <img src="resource/toko-barokah-dashboard.png" alt="Scroll tampilan dashboard admin Berkah Store dari atas sampai bawah" loading="lazy">
+      </div>
+      <div class="folio-card__body">
+        <div class="folio-card__tags">
+          <span data-i18n="folio2.tag1">Admin Dashboard</span>
+          <span data-i18n="folio2.tag2">CRUD Produk &amp; Transaksi</span>
+        </div>
+        <h3 data-i18n="folio2.h3">Berkah Store — Dashboard Admin</h3>
+        <p data-i18n="folio2.desc">Dashboard admin untuk monitor penjualan dan stok, lengkap dengan grafik dan manajemen produk.</p>
+        <div class="folio-gallery">
+          <img src="resource/toko-barokah-produk.png" alt="Halaman manajemen produk Berkah Store" loading="lazy">
+          <img src="resource/toko-barokah-transaksi.png" alt="Halaman transaksi Berkah Store" loading="lazy">
+        </div>
+        <a class="btn btn--primary" data-i18n="folio.cta" href="https://mrizaa.github.io/toko-dashboard1/" target="_blank" rel="noopener">Lihat Demo Langsung →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -629,9 +682,13 @@
       'folio.tag1': 'Landing Page',
       'folio.tag2': 'Menu &amp; Pembelian',
       'folio.tag3': 'CTA WhatsApp',
-      'folio.h3': 'Kopi Senja — Demo Landing Page F&amp;B',
+      'folio.h3': 'Kopi Senja — Landing Page F&amp;B',
       'folio.desc': 'Landing page kedai kopi lengkap dengan halaman menu dan alur pemesanan, CTA WhatsApp, dan lokasi Google Maps.',
       'folio.cta': 'Lihat Demo Langsung →',
+      'folio2.tag1': 'Admin Dashboard',
+      'folio2.tag2': 'CRUD Produk &amp; Transaksi',
+      'folio2.h3': 'Berkah Store — Dashboard Admin',
+      'folio2.desc': 'Dashboard admin untuk monitor penjualan dan stok, lengkap dengan grafik dan manajemen produk.',
       'faq.eyebrow': 'FAQ',
       'faq.h2': 'Pertanyaan yang sering ditanyakan.',
       'faq.q1': 'Berapa lama pengerjaannya?',
@@ -713,9 +770,14 @@
       'folio.tag1': 'Landing Page',
       'folio.tag2': 'Menu &amp; Ordering',
       'folio.tag3': 'WhatsApp CTA',
-      'folio.h3': 'Kopi Senja — F&amp;B Landing Page Demo',
+      'folio.h3': 'Kopi Senja — F&amp;B Landing Page',
       'folio.desc': 'A complete coffee shop landing page with a menu and ordering flow, WhatsApp CTA, and Google Maps location.',
       'folio.cta': 'View Live Demo →',
+      'folio2.tag1': 'Admin Dashboard',
+      'folio2.tag2': 'Product &amp; Transaction CRUD',
+      'folio2.tag3': 'Sales Chart',
+      'folio2.h3': 'Berkah Store — Admin Dashboard',
+      'folio2.desc': 'An admin dashboard for tracking sales and inventory, complete with chart and product management.',
       'faq.eyebrow': 'FAQ',
       'faq.h2': 'Frequently asked questions.',
       'faq.q1': 'How long does it take?',
